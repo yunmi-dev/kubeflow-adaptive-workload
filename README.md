@@ -24,6 +24,25 @@
 - TensorFlow 2.x
 - Docker Desktop
 
+## 프로젝트 구조
+kubeflow-adaptive-workload/
+├── README.md
+├── .gitignore
+├── requirements.txt (곧 생성)
+├── kind-config.yaml (곧 생성)
+├── src/
+│   ├── performance_scorer.py
+│   ├── data_distributor.py
+│   ├── optimizer.py
+│   └── trainer.py
+├── experiments/
+│   ├── grid_search/
+│   ├── random_search/
+│   └── bayesian_opt/
+├── results/
+├── docs/
+└── configs/
+
 ## 설치 방법
 ```bash
 # 클러스터 생성
