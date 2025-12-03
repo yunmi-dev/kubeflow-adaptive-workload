@@ -1,0 +1,269 @@
+{
+  "grid_search": {
+    "experiment_name": "Optimized by grid_search",
+    "data_distributions": [
+      30207,
+      18094,
+      11699
+    ],
+    "nodes": [
+      {
+        "node_id": 1,
+        "cpu_factor": 1.0,
+        "memory_mb": 8192,
+        "name": "High-Perf"
+      },
+      {
+        "node_id": 2,
+        "cpu_factor": 0.5,
+        "memory_mb": 4096,
+        "name": "Mid-Perf"
+      },
+      {
+        "node_id": 3,
+        "cpu_factor": 0.25,
+        "memory_mb": 2048,
+        "name": "Low-Perf"
+      }
+    ],
+    "node_metrics": [
+      {
+        "node_id": 1,
+        "node_name": "High-Perf",
+        "cpu_factor": 1.0,
+        "data_size": 30207,
+        "actual_time": 17.010477781295776,
+        "simulated_time": 17.010477781295776,
+        "final_loss": 0.1421607881784439,
+        "final_accuracy": 0.9628117680549622,
+        "val_loss": 0.09682019054889679,
+        "val_accuracy": 0.9731876850128174,
+        "samples_per_sec": 1775.7878637139006
+      },
+      {
+        "node_id": 2,
+        "node_name": "Mid-Perf",
+        "cpu_factor": 0.5,
+        "data_size": 18094,
+        "actual_time": 11.638388395309448,
+        "simulated_time": 23.276776790618896,
+        "final_loss": 0.2338927984237671,
+        "final_accuracy": 0.9408621788024902,
+        "val_loss": 0.11613433808088303,
+        "val_accuracy": 0.9668508172035217,
+        "samples_per_sec": 777.3413029974287
+      },
+      {
+        "node_id": 3,
+        "node_name": "Low-Perf",
+        "cpu_factor": 0.25,
+        "data_size": 11699,
+        "actual_time": 7.0345611572265625,
+        "simulated_time": 28.13824462890625,
+        "final_loss": 0.2190057337284088,
+        "final_accuracy": 0.9445341229438782,
+        "val_loss": 0.13137148320674896,
+        "val_accuracy": 0.9769230484962463,
+        "samples_per_sec": 415.7686506137518
+      }
+    ],
+    "jct_actual": 17.010477781295776,
+    "jct_simulated": 28.13824462890625,
+    "actual_times": [
+      17.010477781295776,
+      11.638388395309448,
+      7.0345611572265625
+    ],
+    "simulated_times": [
+      17.010477781295776,
+      23.276776790618896,
+      28.13824462890625
+    ],
+    "balance": {
+      "mean_time": 22.808499733606975,
+      "std_time": 4.5549431979837385,
+      "balance_score": 0.8002962381926287,
+      "min_time": 17.010477781295776,
+      "max_time": 28.13824462890625
+    },
+    "total_data": 60000
+  },
+  "random_search": {
+    "experiment_name": "Optimized by random_search",
+    "data_distributions": [
+      29765,
+      18161,
+      12074
+    ],
+    "nodes": [
+      {
+        "node_id": 1,
+        "cpu_factor": 1.0,
+        "memory_mb": 8192,
+        "name": "High-Perf"
+      },
+      {
+        "node_id": 2,
+        "cpu_factor": 0.5,
+        "memory_mb": 4096,
+        "name": "Mid-Perf"
+      },
+      {
+        "node_id": 3,
+        "cpu_factor": 0.25,
+        "memory_mb": 2048,
+        "name": "Low-Perf"
+      }
+    ],
+    "node_metrics": [
+      {
+        "node_id": 1,
+        "node_name": "High-Perf",
+        "cpu_factor": 1.0,
+        "data_size": 29765,
+        "actual_time": 18.718376874923706,
+        "simulated_time": 18.718376874923706,
+        "final_loss": 0.1652345508337021,
+        "final_accuracy": 0.9567343592643738,
+        "val_loss": 0.10260039567947388,
+        "val_accuracy": 0.9744709730148315,
+        "samples_per_sec": 1590.14855822649
+      },
+      {
+        "node_id": 2,
+        "node_name": "Mid-Perf",
+        "cpu_factor": 0.5,
+        "data_size": 18161,
+        "actual_time": 10.297486066818237,
+        "simulated_time": 20.594972133636475,
+        "final_loss": 0.2358590066432953,
+        "final_accuracy": 0.9432207345962524,
+        "val_loss": 0.20027737319469452,
+        "val_accuracy": 0.9548706412315369,
+        "samples_per_sec": 881.817167906665
+      },
+      {
+        "node_id": 3,
+        "node_name": "Low-Perf",
+        "cpu_factor": 0.25,
+        "data_size": 12074,
+        "actual_time": 7.326685905456543,
+        "simulated_time": 29.306743621826172,
+        "final_loss": 0.21749718487262726,
+        "final_accuracy": 0.9407325387001038,
+        "val_loss": 0.148046612739563,
+        "val_accuracy": 0.9784768223762512,
+        "samples_per_sec": 411.98708924480775
+      }
+    ],
+    "jct_actual": 18.718376874923706,
+    "jct_simulated": 29.306743621826172,
+    "actual_times": [
+      18.718376874923706,
+      10.297486066818237,
+      7.326685905456543
+    ],
+    "simulated_times": [
+      18.718376874923706,
+      20.594972133636475,
+      29.306743621826172
+    ],
+    "balance": {
+      "mean_time": 22.873364210128784,
+      "std_time": 4.613146462910442,
+      "balance_score": 0.7983179727944152,
+      "min_time": 18.718376874923706,
+      "max_time": 29.306743621826172
+    },
+    "total_data": 60000
+  },
+  "bayesian_opt": {
+    "experiment_name": "Optimized by bayesian_opt",
+    "data_distributions": [
+      28560,
+      18492,
+      12948
+    ],
+    "nodes": [
+      {
+        "node_id": 1,
+        "cpu_factor": 1.0,
+        "memory_mb": 8192,
+        "name": "High-Perf"
+      },
+      {
+        "node_id": 2,
+        "cpu_factor": 0.5,
+        "memory_mb": 4096,
+        "name": "Mid-Perf"
+      },
+      {
+        "node_id": 3,
+        "cpu_factor": 0.25,
+        "memory_mb": 2048,
+        "name": "Low-Perf"
+      }
+    ],
+    "node_metrics": [
+      {
+        "node_id": 1,
+        "node_name": "High-Perf",
+        "cpu_factor": 1.0,
+        "data_size": 28560,
+        "actual_time": 15.890212059020996,
+        "simulated_time": 15.890212059020996,
+        "final_loss": 0.16586163640022278,
+        "final_accuracy": 0.9572439789772034,
+        "val_loss": 0.11907139420509338,
+        "val_accuracy": 0.9740896224975586,
+        "samples_per_sec": 1797.3328419985603
+      },
+      {
+        "node_id": 2,
+        "node_name": "Mid-Perf",
+        "cpu_factor": 0.5,
+        "data_size": 18492,
+        "actual_time": 11.457185745239258,
+        "simulated_time": 22.914371490478516,
+        "final_loss": 0.2248009443283081,
+        "final_accuracy": 0.9445379376411438,
+        "val_loss": 0.12857046723365784,
+        "val_accuracy": 0.9616216421127319,
+        "samples_per_sec": 807.0044603965629
+      },
+      {
+        "node_id": 3,
+        "node_name": "Low-Perf",
+        "cpu_factor": 0.25,
+        "data_size": 12948,
+        "actual_time": 8.056878089904785,
+        "simulated_time": 32.22751235961914,
+        "final_loss": 0.22956344485282898,
+        "final_accuracy": 0.9382133483886719,
+        "val_loss": 0.14491406083106995,
+        "val_accuracy": 0.9675675630569458,
+        "samples_per_sec": 401.768521737463
+      }
+    ],
+    "jct_actual": 15.890212059020996,
+    "jct_simulated": 32.22751235961914,
+    "actual_times": [
+      15.890212059020996,
+      11.457185745239258,
+      8.056878089904785
+    ],
+    "simulated_times": [
+      15.890212059020996,
+      22.914371490478516,
+      32.22751235961914
+    ],
+    "balance": {
+      "mean_time": 23.67736530303955,
+      "std_time": 6.691460475685203,
+      "balance_score": 0.7173899887068012,
+      "min_time": 15.890212059020996,
+      "max_time": 32.22751235961914
+    },
+    "total_data": 60000
+  }
+}

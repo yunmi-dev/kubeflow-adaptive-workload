@@ -1,0 +1,33 @@
+{
+  "baseline": {
+    "jct": 50.3952112197876,
+    "balance": 0.4216389169373319
+  },
+  "simple_adaptive": {
+    "jct": 20.853116035461426,
+    "improvement": 58.62083810996413,
+    "balance": 0.9719196020762108
+  },
+  "optimized_methods": {
+    "grid_search": {
+      "jct": 28.13824462890625,
+      "improvement": 44.16484434168258,
+      "balance": 0.8002962381926287
+    },
+    "random_search": {
+      "jct": 29.306743621826172,
+      "improvement": 41.846173649295224,
+      "balance": 0.7983179727944152
+    },
+    "bayesian_opt": {
+      "jct": 32.22751235961914,
+      "improvement": 36.050446898484154,
+      "balance": 0.7173899887068012
+    }
+  },
+  "best_method": {
+    "name": "grid_search",
+    "jct": 28.13824462890625,
+    "total_improvement": 44.16484434168258
+  }
+}
