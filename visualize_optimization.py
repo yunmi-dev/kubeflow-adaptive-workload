@@ -13,19 +13,37 @@ plt.rcParams['axes.unicode_minus'] = False
 
 os.makedirs('results/figures', exist_ok=True)
 
+print("데이터 로딩 중...")
+
 # 데이터 로드
-with open('experiments/grid_search/results.json', 'r') as f:
-    grid_data = json.load(f)
+try:
+    with open('experiments/grid_search/results.json', 'r') as f:
+        grid_data = json.load(f)
+    print("✓ Grid Search 데이터 로드 완료")
+except Exception as e:
+    print(f"✗ Grid Search 로드 실패: {e}")
+    exit(1)
 
-with open('experiments/random_search/results.json', 'r') as f:
-    random_data = json.load(f)
+try:
+    with open('experiments/random_search/results.json', 'r') as f:
+        random_data = json.load(f)
+    print("✓ Random Search 데이터 로드 완료")
+except Exception as e:
+    print(f"✗ Random Search 로드 실패: {e}")
+    exit(1)
 
-with open('experiments/bayesian_opt/results.json', 'r') as f:
-    bayesian_data = json.load(f)
+try:
+    with open('experiments/bayesian_opt/results.json', 'r') as f:
+        bayesian_data = json.load(f)
+    print("✓ Bayesian Opt 데이터 로드 완료")
+except Exception as e:
+    print(f"✗ Bayesian Opt 로드 실패: {e}")
+    exit(1)
 
 # ============================================================
 # 1. 가중치 비교 막대 그래프
 # ============================================================
+print("\n[1/5] 가중치 비교 그래프 생성 중...")
 fig, ax = plt.subplots(figsize=(10, 6))
 
 methods = ['Grid Search', 'Random Search', 'Bayesian Opt']
@@ -47,7 +65,6 @@ for i, (label, key, color) in enumerate(zip(labels, keys, colors)):
     offset = width * (i - 1.5)
     bars = ax.bar(x + offset, values, width, label=label, color=color, alpha=0.8, edgecolor='black')
     
-    # 값 표시
     for bar in bars:
         height = bar.get_height()
         ax.text(bar.get_x() + bar.get_width()/2., height,
@@ -63,27 +80,27 @@ ax.grid(axis='y', alpha=0.3)
 
 plt.tight_layout()
 plt.savefig('results/figures/optimal_weights_comparison.png', dpi=300, bbox_inches='tight')
-print("✅ 최적 가중치 비교 그래프 저장")
+plt.close()
+print("✅ optimal_weights_comparison.png 저장 완료")
 
 # ============================================================
-# 2. Random Search 산점도 (α vs JCT)
+# 2. Random Search 산점도
 # ============================================================
+print("[2/5] Random Search 산점도 생성 중...")
 fig, ax = plt.subplots(figsize=(10, 6))
 
 random_results = random_data['all_results']
 alphas = [r['alpha'] for r in random_results]
 jcts = [r['jct'] for r in random_results]
 
-# 산점도
 scatter = ax.scatter(alphas, jcts, c=jcts, cmap='RdYlGn_r', 
                      s=100, alpha=0.6, edgecolors='black')
 
-# 최적점 표시
 best = random_data['best_weights']
 ax.scatter(best['alpha'], best['jct'], 
-          color='red', s=300, marker='★', 
+          color='red', s=300, marker='*', 
           edgecolors='black', linewidths=2,
-          label=f'최적: α={best["alpha"]:.3f}, JCT={best["jct"]:.1f}초')
+          label=f'최적: α={best["alpha"]:.3f}, JCT={best["jct"]:.1f}초', zorder=5)
 
 ax.set_xlabel('α (CPU 가중치)', fontsize=12)
 ax.set_ylabel('JCT (초)', fontsize=12)
@@ -91,24 +108,24 @@ ax.set_title('Random Search: α와 JCT 관계', fontsize=14, fontweight='bold')
 ax.legend(fontsize=11)
 ax.grid(alpha=0.3)
 
-# 컬러바
 cbar = plt.colorbar(scatter, ax=ax)
 cbar.set_label('JCT (초)', fontsize=11)
 
 plt.tight_layout()
 plt.savefig('results/figures/random_search_scatter.png', dpi=300, bbox_inches='tight')
-print("✅ Random Search 산점도 저장")
+plt.close()
+print("✅ random_search_scatter.png 저장 완료")
 
 # ============================================================
 # 3. Bayesian Optimization 수렴 곡선
 # ============================================================
+print("[3/5] Bayesian 수렴 곡선 생성 중...")
 fig, ax = plt.subplots(figsize=(10, 6))
 
 bayesian_results = bayesian_data['all_results']
 iterations = list(range(1, len(bayesian_results) + 1))
 jcts_bayesian = [r['jct'] for r in bayesian_results]
 
-# 현재까지 최고 기록
 best_so_far = []
 current_best = float('inf')
 for jct in jcts_bayesian:
@@ -116,7 +133,6 @@ for jct in jcts_bayesian:
         current_best = jct
     best_so_far.append(current_best)
 
-# 그래프
 ax.plot(iterations, jcts_bayesian, 'o-', 
         color='#9b59b6', alpha=0.5, linewidth=2, 
         markersize=8, label='각 시도의 JCT')
@@ -124,10 +140,10 @@ ax.plot(iterations, best_so_far, 's-',
         color='#e74c3c', linewidth=3, 
         markersize=8, label='현재까지 최고 기록')
 
-# 초기화 단계 표시
-ax.axvline(x=5, color='gray', linestyle='--', alpha=0.5)
-ax.text(5, max(jcts_bayesian), '초기화 완료 →', 
-        ha='right', va='top', fontsize=10, color='gray')
+if len(iterations) >= 5:
+    ax.axvline(x=5, color='gray', linestyle='--', alpha=0.5)
+    ax.text(5, max(jcts_bayesian), '초기화 완료 →', 
+            ha='right', va='top', fontsize=10, color='gray')
 
 ax.set_xlabel('평가 횟수', fontsize=12)
 ax.set_ylabel('JCT (초)', fontsize=12)
@@ -135,7 +151,6 @@ ax.set_title('Bayesian Optimization 수렴 곡선', fontsize=14, fontweight='bol
 ax.legend(fontsize=11)
 ax.grid(alpha=0.3)
 
-# 최종 값 표시
 final_best = best_so_far[-1]
 ax.text(len(iterations), final_best, 
         f'  최종: {final_best:.1f}초', 
@@ -144,14 +159,16 @@ ax.text(len(iterations), final_best,
 
 plt.tight_layout()
 plt.savefig('results/figures/bayesian_convergence.png', dpi=300, bbox_inches='tight')
-print("✅ Bayesian Optimization 수렴 곡선 저장")
+plt.close()
+print("✅ bayesian_convergence.png 저장 완료")
 
 # ============================================================
 # 4. 3가지 기법 수렴 비교
 # ============================================================
+print("[4/5] 3가지 기법 수렴 비교 생성 중...")
 fig, ax = plt.subplots(figsize=(12, 6))
 
-# Grid Search (전수 탐색이라 순서는 의미 없지만 시각화용)
+# Grid Search
 grid_results = grid_data['all_results']
 grid_iterations = list(range(1, len(grid_results) + 1))
 grid_jcts = [r['jct'] for r in grid_results]
@@ -170,7 +187,6 @@ for jct in jcts:
         current_best = jct
     random_best.append(current_best)
 
-# 플롯
 ax.plot(grid_iterations, grid_best, 'o-', 
         color='#3498db', linewidth=2.5, markersize=6,
         label=f'Grid Search (최종: {grid_best[-1]:.1f}초)')
@@ -187,19 +203,15 @@ ax.set_title('3가지 최적화 기법 수렴 속도 비교', fontsize=14, fontw
 ax.legend(fontsize=11, loc='upper right')
 ax.grid(alpha=0.3)
 
-# 최종 비교선
-final_values = [grid_best[-1], random_best[-1], best_so_far[-1]]
-best_overall = min(final_values)
-ax.axhline(y=best_overall, color='green', linestyle='--', 
-           alpha=0.5, label=f'최고 기록: {best_overall:.1f}초')
-
 plt.tight_layout()
 plt.savefig('results/figures/convergence_comparison.png', dpi=300, bbox_inches='tight')
-print("✅ 3가지 기법 수렴 비교 그래프 저장")
+plt.close()
+print("✅ convergence_comparison.png 저장 완료")
 
 # ============================================================
-# 5. 최적화 기법 특성 요약 테이블 이미지
+# 5. 최적화 기법 특성 요약 테이블
 # ============================================================
+print("[5/5] 최적화 기법 비교 테이블 생성 중...")
 fig, ax = plt.subplots(figsize=(12, 4))
 ax.axis('tight')
 ax.axis('off')
@@ -233,12 +245,10 @@ table.auto_set_font_size(False)
 table.set_fontsize(10)
 table.scale(1, 2.5)
 
-# 헤더 스타일
 for i in range(6):
     table[(0, i)].set_facecolor('#3498db')
     table[(0, i)].set_text_props(weight='bold', color='white')
 
-# 데이터 행 스타일
 colors = ['#e8f4f8', '#f0e8f8', '#f8f0e8']
 for i in range(1, 4):
     for j in range(6):
@@ -248,9 +258,10 @@ for i in range(1, 4):
 plt.title('최적화 기법 특성 비교', fontsize=14, fontweight='bold', pad=20)
 plt.tight_layout()
 plt.savefig('results/figures/optimization_summary_table.png', dpi=300, bbox_inches='tight')
-print("✅ 최적화 기법 비교 테이블 저장")
+plt.close()
+print("✅ optimization_summary_table.png 저장 완료")
 
 print("\n" + "="*60)
-print("✅ 모든 추가 시각화 완료!")
+print("✅ 모든 시각화 완료!")
 print("저장 위치: results/figures/")
 print("="*60)
