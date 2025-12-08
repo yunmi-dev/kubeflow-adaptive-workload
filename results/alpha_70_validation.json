@@ -1,0 +1,89 @@
+{
+  "experiment_name": "\u03b1=0.70 \uac80\uc99d",
+  "data_distributions": [
+    34027,
+    16986,
+    8987
+  ],
+  "nodes": [
+    {
+      "node_id": 1,
+      "cpu_factor": 1.0,
+      "memory_mb": 8192,
+      "name": "High-Perf"
+    },
+    {
+      "node_id": 2,
+      "cpu_factor": 0.5,
+      "memory_mb": 4096,
+      "name": "Mid-Perf"
+    },
+    {
+      "node_id": 3,
+      "cpu_factor": 0.25,
+      "memory_mb": 2048,
+      "name": "Low-Perf"
+    }
+  ],
+  "node_metrics": [
+    {
+      "node_id": 1,
+      "node_name": "High-Perf",
+      "cpu_factor": 1.0,
+      "data_size": 34027,
+      "actual_time": 20.62745189666748,
+      "simulated_time": 20.62745189666748,
+      "final_loss": 0.1385054886341095,
+      "final_accuracy": 0.9642763733863831,
+      "val_loss": 0.08355147391557693,
+      "val_accuracy": 0.9779606461524963,
+      "samples_per_sec": 1649.5978354697954
+    },
+    {
+      "node_id": 2,
+      "node_name": "Mid-Perf",
+      "cpu_factor": 0.5,
+      "data_size": 16986,
+      "actual_time": 10.370884895324707,
+      "simulated_time": 20.741769790649414,
+      "final_loss": 0.18638817965984344,
+      "final_accuracy": 0.9502845406532288,
+      "val_loss": 0.1303253024816513,
+      "val_accuracy": 0.9611536264419556,
+      "samples_per_sec": 818.9272261452564
+    },
+    {
+      "node_id": 3,
+      "node_name": "Low-Perf",
+      "cpu_factor": 0.25,
+      "data_size": 8987,
+      "actual_time": 5.383437871932983,
+      "simulated_time": 21.533751487731934,
+      "final_loss": 0.2582409679889679,
+      "final_accuracy": 0.9326162338256836,
+      "val_loss": 0.2131832391023636,
+      "val_accuracy": 0.9599555134773254,
+      "samples_per_sec": 417.34483678424607
+    }
+  ],
+  "jct_actual": 20.62745189666748,
+  "jct_simulated": 21.533751487731934,
+  "actual_times": [
+    20.62745189666748,
+    10.370884895324707,
+    5.383437871932983
+  ],
+  "simulated_times": [
+    20.62745189666748,
+    20.741769790649414,
+    21.533751487731934
+  ],
+  "balance": {
+    "mean_time": 20.967657725016277,
+    "std_time": 0.4030002120431986,
+    "balance_score": 0.9807799126956187,
+    "min_time": 20.62745189666748,
+    "max_time": 21.533751487731934
+  },
+  "total_data": 60000
+}
